@@ -1,0 +1,23 @@
+.board {
+  max-width: 100%;
+  position: relative;
+}
+
+
+.selected {
+  fill: green !important;
+  fill-opacity: 1 !important;
+}
+
+
+#mongolia {
+  fill: blue !important;
+}
+
+
+#iceland:hover {
+  height: 400px;
+  width: 600px;
+  fill: orange !important;
+}
+
