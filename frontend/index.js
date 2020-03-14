@@ -2,7 +2,7 @@ let territories = [
   argentina = {
     id: 1,
     name: "argentina",
-    validMoves: [2, 3],
+    neighbours: ["brazil", "peru"],
     playerOwned: 1,
     units: 3,
   },
@@ -10,7 +10,7 @@ let territories = [
   brazil = {
     id: 2,
     name: "brazil",
-    validMoves: [1, 3, 4],
+    neighbours: ["argentina", "peru", "venezuela", "north_africa"],
     playerOwned: 1,
     units: 6,
   },
@@ -18,7 +18,7 @@ let territories = [
   peru = {
     id: 3,
     name: "peru",
-    validMoves: [1, 2, 4],
+    neighbours: ["brazil", "argentina", "venezuela"],
     playerOwned: 2,
     units: 8,
   },
@@ -26,7 +26,7 @@ let territories = [
   venezuela = {
     id: 4,
     name: "venezuela",
-    validMoves: [2, 3],
+    neighbours: ["brazil", "peru", "central_america"],
     playerOwned: 2,
     units: 12,
   }
@@ -66,11 +66,8 @@ const isValidClick = (event) => {
 }
 
 const areNeighbors = (firstSelectedTerritoryObj, secondSelectedTerritoryObj) => {
-  console.log(firstSelectedTerritoryObj)
-  console.log(secondSelectedTerritoryObj)
-
-  for (let i = 0; firstSelectedTerritoryObj.validMoves.length > i; i+= 1) {
-    if(firstSelectedTerritoryObj.validMoves[i] == secondSelectedTerritoryObj.id) {
+  for (let i = 0; firstSelectedTerritoryObj.neighbours.length > i; i+= 1) {
+    if(firstSelectedTerritoryObj.neighbours[i] == secondSelectedTerritoryObj.name) {
       return true;
     }
   }
@@ -196,10 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const defendingTerritory = findSecondSelectedObject(this.event)
     if(areNeighbors(attackingTerritory, defendingTerritory) === false) {
       console.log('these territories are not neighbors')
+      return;
     }
     if (isEnemyTerritory(attackingTerritory, defendingTerritory) === false) {
       console.log('this is not enemy territory')
+      return;
     } else {
+      console.log(attackingTerritory, defendingTerritory)
       console.log('attack is valid')
     }
   });
